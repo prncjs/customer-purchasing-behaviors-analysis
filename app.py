@@ -77,15 +77,60 @@ def data_exploration_section(df):
 
     # Tab Navigation
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
-        ["Correlation Heatmap", 
-         "Age", 
+        ["Age", 
          "Annual Income", 
-         "Purchase Amount", 
-         "Loyalty Score", 
-         "Purchase Frequency"]
+         "Loyalty Score",
+         "Purchase Amount",  
+         "Purchase Frequency",
+         "Correlation Heatmap"]
     )
 
-    with tab1:
+    with tab1: #Histogram
+        st.subheader("Age")
+        fig, ax = plt.subplots()
+        ax.hist(df['age'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_title("Age Distribution")
+        ax.set_xlabel("Age")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+
+    with tab2: #Histogram
+        st.subheader("Annual Income")
+        fig, ax = plt.subplots()
+        ax.hist(df['annual_income'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_title("Annual Income Distribution")
+        ax.set_xlabel("Annual Income")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+
+    with tab3: #Histogram
+        st.subheader("Loyalty Score")
+        fig, ax = plt.subplots()
+        ax.hist(df['loyalty_score'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_title("Loyalty Score Distribution")
+        ax.set_xlabel("Loyalty Score")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+
+    with tab4: #Histogram
+        st.subheader("Purchase Amount")
+        fig, ax = plt.subplots()
+        ax.hist(df['purchase_amount'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_title("Purchase Amount Distribution")
+        ax.set_xlabel("Purchase Amount")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+
+    with tab5: #Histogram
+        st.subheader("Purchase Frequency")
+        fig, ax = plt.subplots()
+        ax.hist(df['purchase_frequency'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_title("Purchase Frequency Distribution")
+        ax.set_xlabel("Purchase Frequency")
+        ax.set_ylabel("Frequency")
+        st.pyplot(fig)
+
+    with tab6:
         st.subheader("Correlation Heatmap")
         
         df_cleaned = df.drop(columns=['user_id', 'region'])
@@ -97,51 +142,6 @@ def data_exploration_section(df):
         plt.figure(figsize=(8, 6))
         sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
         st.pyplot(plt)
-
-    with tab2:
-        st.subheader("Age")
-        fig, ax = plt.subplots()
-        ax.hist(df['age'], bins=20, color='skyblue', edgecolor='black')
-        ax.set_title("Age Distribution")
-        ax.set_xlabel("Age")
-        ax.set_ylabel("Frequency")
-        st.pyplot(fig)
-
-    with tab3:
-        st.subheader("Annual Income")
-        fig, ax = plt.subplots()
-        ax.hist(df['annual_income'], bins=20, color='skyblue', edgecolor='black')
-        ax.set_title("Annual Income Distribution")
-        ax.set_xlabel("Annual Income")
-        ax.set_ylabel("Frequency")
-        st.pyplot(fig)
-
-    with tab4:
-        st.subheader("Purchase Amount")
-        fig, ax = plt.subplots()
-        ax.hist(df['purchase_amount'], bins=20, color='skyblue', edgecolor='black')
-        ax.set_title("Purchase Amount Distribution")
-        ax.set_xlabel("Purchase Amount")
-        ax.set_ylabel("Frequency")
-        st.pyplot(fig)
-
-    with tab5:
-        st.subheader("Loyalty Score")
-        fig, ax = plt.subplots()
-        ax.hist(df['loyalty_score'], bins=20, color='skyblue', edgecolor='black')
-        ax.set_title("Loyalty Score Distribution")
-        ax.set_xlabel("Loyalty Score")
-        ax.set_ylabel("Frequency")
-        st.pyplot(fig)
-
-    with tab6:
-        st.subheader("Purchase Frequency")
-        fig, ax = plt.subplots()
-        ax.hist(df['purchase_frequency'], bins=20, color='skyblue', edgecolor='black')
-        ax.set_title("Purchase Frequency Distribution")
-        ax.set_xlabel("Purchase Frequency")
-        ax.set_ylabel("Frequency")
-        st.pyplot(fig)
 
 #Analysis and Insights
 
