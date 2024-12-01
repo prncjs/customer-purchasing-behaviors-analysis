@@ -36,7 +36,7 @@ def overview_section(df):
     # Research Question
     st.write("""
     **Research Question**:
-    How do factors like age, annual income, loyalty score, and region influence a customer's purchase amount?
+    How do factors like **age**, **annual income**, and  **loyalty score** influence a customer's **purchase amount** and **purchase frequency**?
 
     By understanding these relationships, businesses can optimize their sales strategies and offer personalized recommendations, which could lead to increased customer retention and higher sales.
     """)
@@ -46,18 +46,12 @@ def overview_section(df):
     **Selected Analysis Technique**:
     To answer the research question, we will use **Linear Regression**, a statistical method to examine the relationship between a dependent variable and one or more independent variables. In this case:
     
-    - The **dependent variables** are:
-    - **Purchase Amount**
-    - **Purchase Frequency**
-
-    - The **independent variables** for both targets are:
-    - **Age**
-    - **Annual Income**
-    - **Loyalty Score**
-    - **Purchase Frequency** (for predicting purchase amount) / **Purchase Amount** (for predicting purchase frequency)
-
-Linear regression will help quantify the impact of each predictor on the purchase amount and purchase frequency, and evaluate how well the model explains customer purchasing behavior for both targets.
-""")
+    - The **dependent variables** are: **Purchase Amount** and **Purchase Frequency**
+    - The **independent variables** are: **Age**, **Annual Income**, **Loyalty Score**, and **Purchase Frequency** (for predicting purchase amount) / **Purchase Amount** (for predicting purchase frequency)
+    
+    Linear regression will help quantify the impact of each predictor on the purchase amount and purchase frequency, and evaluate how well the model explains customer purchasing behavior for both targets. 
+     """)
+    
     # Display dataset structure
     st.write("Dataset Structure:")
     st.write(df.head())
