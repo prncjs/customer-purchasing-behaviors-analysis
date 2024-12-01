@@ -198,17 +198,17 @@ def analysis_and_insights_section(df):
         y_pred = model.predict(X_test)
 
         # Display model performance for purchase amount
-        st.write("### Model Performance (Purchase Amount)")
+        st.write("### Model Performance")
         st.write(f"**Mean Squared Error (MSE):** {mean_squared_error(y_test, y_pred):.2f}")
         st.write(f"**R² Score:** {r2_score(y_test, y_pred):.2f}")
 
         # Show coefficients for purchase amount model
-        st.write("### Model Coefficients (Purchase Amount)")
+        st.write("### Model Coefficients")
         coeff_df = pd.DataFrame({"Feature": X.columns, "Coefficient": model.coef_})
         st.write(coeff_df)
 
         # Visualization: Predicted vs. Actual (Purchase Amount)
-        st.write("### Predicted vs. Actual Values (Purchase Amount)")
+        st.write("### Predicted vs. Actual Values")
         fig, ax = plt.subplots()
         ax.scatter(y_test, y_pred, alpha=0.7)
         ax.plot([y_amount.min(), y_amount.max()], [y_amount.min(), y_amount.max()], 'k--', lw=2)
@@ -223,17 +223,17 @@ def analysis_and_insights_section(df):
         y_pred_freq = model.predict(X_test_freq)
 
         # Display model performance for purchase frequency
-        st.write("### Model Performance (Purchase Frequency)")
+        st.write("### Model Performance)")
         st.write(f"**Mean Squared Error (MSE):** {mean_squared_error(y_test_freq, y_pred_freq):.2f}")
         st.write(f"**R² Score:** {r2_score(y_test_freq, y_pred_freq):.2f}")
 
         # Show coefficients for purchase frequency model
-        st.write("### Model Coefficients (Purchase Frequency)")
+        st.write("### Model Coefficients)")
         coeff_df_freq = pd.DataFrame({"Feature": X.columns, "Coefficient": model.coef_})
         st.write(coeff_df_freq)
 
         # Visualization: Predicted vs. Actual (Purchase Frequency)
-        st.write("### Predicted vs. Actual Values (Purchase Frequency)")
+        st.write("### Predicted vs. Actual Values")
         fig_freq, ax_freq = plt.subplots()
         ax_freq.scatter(y_test_freq, y_pred_freq, alpha=0.7)
         ax_freq.plot([y_freq.min(), y_freq.max()], [y_freq.min(), y_freq.max()], 'k--', lw=2)
@@ -241,7 +241,6 @@ def analysis_and_insights_section(df):
         ax_freq.set_xlabel("Actual Purchase Frequency")
         ax_freq.set_ylabel("Predicted Purchase Frequency")
         st.pyplot(fig_freq)
-
 
 
 # Conclusions and Recommendations Section
