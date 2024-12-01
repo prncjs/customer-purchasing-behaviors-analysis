@@ -46,12 +46,18 @@ def overview_section(df):
     **Selected Analysis Technique**:
     To answer the research question, we will use **Linear Regression**, a statistical method to examine the relationship between a dependent variable and one or more independent variables. In this case:
     
-    - The **dependent variable** (target) is **purchase amount**.
-    - The **independent variables** (predictors) are **age**, **annual income**, **loyalty score**, and **region**.
-    
-    Linear regression will help quantify the impact of each predictor on the purchase amount and evaluate how well the model explains customer purchasing behavior.
-    """)
+    - The **dependent variables** are:
+    - **Purchase Amount**
+    - **Purchase Frequency**
 
+    - The **independent variables** for both targets are:
+    - **Age**
+    - **Annual Income**
+    - **Loyalty Score**
+    - **Purchase Frequency** (for predicting purchase amount) / **Purchase Amount** (for predicting purchase frequency)
+
+Linear regression will help quantify the impact of each predictor on the purchase amount and purchase frequency, and evaluate how well the model explains customer purchasing behavior for both targets.
+""")
     # Display dataset structure
     st.write("Dataset Structure:")
     st.write(df.head())
