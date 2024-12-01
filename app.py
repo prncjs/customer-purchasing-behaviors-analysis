@@ -223,12 +223,12 @@ def analysis_and_insights_section(df):
         y_pred_freq = model.predict(X_test_freq)
 
         # Display model performance for purchase frequency
-        st.write("### Model Performance)")
+        st.write("### Model Performance")
         st.write(f"**Mean Squared Error (MSE):** {mean_squared_error(y_test_freq, y_pred_freq):.2f}")
         st.write(f"**R² Score:** {r2_score(y_test_freq, y_pred_freq):.2f}")
 
         # Show coefficients for purchase frequency model
-        st.write("### Model Coefficients)")
+        st.write("### Model Coefficients")
         coeff_df_freq = pd.DataFrame({"Feature": X.columns, "Coefficient": model.coef_})
         st.write(coeff_df_freq)
 
