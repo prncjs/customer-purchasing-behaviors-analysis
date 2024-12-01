@@ -255,7 +255,7 @@ def conclusions_and_recommendations_section():
 
 # Main App with Navigation
 def main():
-    st.title('Customer Purchasing Behavior Analysis')
+    st.title('Customer Purchasing Behavior Analysis Using Linear Regression')
 
     # Load dataset
     df = load_data()
