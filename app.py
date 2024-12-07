@@ -75,6 +75,8 @@ def data_exploration_section(df):
     st.write("Summary Statistics:")
     st.write(df.describe())
 
+    st.write("Visualizations:")
+
     # Tab Navigation
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
         ["Age", 
@@ -88,47 +90,97 @@ def data_exploration_section(df):
     with tab1: #Histogram
         st.subheader("Age")
         fig, ax = plt.subplots()
-        ax.hist(df['age'], bins=20, color='skyblue', edgecolor='black')
+        sns.histplot(df['age'], bins=20, kde=True, color='skyblue', ax=ax)
         ax.set_title("Age Distribution")
         ax.set_xlabel("Age")
         ax.set_ylabel("Frequency")
         st.pyplot(fig)
 
-    with tab2: #Histogram
-        st.subheader("Annual Income")
+        # Interpretation
+        st.write("""
+        **Interpretation**:
+        - The age distribution appears to be roughly normal (bell-shaped) with a slight right skew.
+        - The majority of customers are concentrated between 30-50 years old.
+        - The peak of the distribution is around 35-40 years.
+        - There are fewer very young customers (< 25) and older customers (> 55).
+        - The distribution suggests the business appeals most to middle-aged consumers.
+
+        """)
+
+
+    with tab2:  # Annual Income
+        st.subheader("Annual Income Distribution")
         fig, ax = plt.subplots()
-        ax.hist(df['annual_income'], bins=20, color='skyblue', edgecolor='black')
+        sns.histplot(df['annual_income'], bins=20, kde=True, color='skyblue', ax=ax)
         ax.set_title("Annual Income Distribution")
         ax.set_xlabel("Annual Income")
         ax.set_ylabel("Frequency")
         st.pyplot(fig)
+        
+        # Interpretation
+        st.write("""
+        **Interpretation**:
+        - Shows a relatively normal distribution with some right skew.
+        - The bulk of customers have annual incomes between $45,000 and $70,000.
+        - The peak appears to be around $55,000-$60,000.
+        - There's a longer tail towards higher incomes, indicating some high-income customers.
+        - Few customers are in the very low (< $30,000) or very high (> $80,000) income brackets.
+        """)
+        
 
-    with tab3: #Histogram
-        st.subheader("Loyalty Score")
+    with tab3:  # Loyalty Score
+        st.subheader("Loyalty Score Distribution")
         fig, ax = plt.subplots()
-        ax.hist(df['loyalty_score'], bins=20, color='skyblue', edgecolor='black')
+        sns.histplot(df['loyalty_score'], bins=20, kde=True, color='skyblue', ax=ax)
         ax.set_title("Loyalty Score Distribution")
         ax.set_xlabel("Loyalty Score")
         ax.set_ylabel("Frequency")
         st.pyplot(fig)
 
-    with tab4: #Histogram
-        st.subheader("Purchase Amount")
+        st.write("""
+        **Interpretation**:
+        - Shows a somewhat normal distribution with a slight left skew.
+        - Scores range from 1-10, with most customers falling between 5-8.
+        - The peak is around 7-8, indicating generally good customer loyalty.
+        - Fewer customers have very low (1-3) or very high (9-10) loyalty scores.
+        - The distribution suggests successful customer retention with room for improvement in converting lower-scoring customers.
+        """)
+
+    with tab4:  # Purchase Amount
+        st.subheader("Purchase Amount Distribution")
         fig, ax = plt.subplots()
-        ax.hist(df['purchase_amount'], bins=20, color='skyblue', edgecolor='black')
+        sns.histplot(df['purchase_amount'], bins=20, kde=True, color='skyblue', ax=ax)
         ax.set_title("Purchase Amount Distribution")
         ax.set_xlabel("Purchase Amount")
         ax.set_ylabel("Frequency")
         st.pyplot(fig)
+    
+        st.write("""
+        **Interpretation**:
+        - Exhibits a right-skewed distribution.
+        - Most purchase amounts cluster between $200-$600.
+        - The peak is around $300-$400.
+        - There's a long tail extending towards higher purchase amounts.
+        - This pattern suggests a core range of typical purchases with some customers making significantly larger purchases.
+        """)
 
-    with tab5: #Histogram
-        st.subheader("Purchase Frequency")
+    with tab5:  # Purchase Frequency
+        st.subheader("Purchase Frequency Distribution")
         fig, ax = plt.subplots()
-        ax.hist(df['purchase_frequency'], bins=20, color='skyblue', edgecolor='black')
+        sns.histplot(df['purchase_frequency'], bins=20, kde=True, color='skyblue', ax=ax)
         ax.set_title("Purchase Frequency Distribution")
         ax.set_xlabel("Purchase Frequency")
         ax.set_ylabel("Frequency")
         st.pyplot(fig)
+
+        st.write("""
+        **Interpretation**:
+        - The distribution has a slight right skew, with a longer tail extending beyond 25 purchases.
+        - The first peak occurs around 15 purchases, and the second peak is around 22 purchases.
+        - The majority of customers have purchase frequencies between 10 and 25 purchases.
+        - There is a noticeable dip in frequency between 17 and 20 purchases, indicating fewer customers in this range.
+        - Very few customers have purchase frequencies below 12 purchases or above 27 purchases.
+        """)
 
     with tab6:
         st.subheader("Correlation Heatmap")
@@ -142,6 +194,17 @@ def data_exploration_section(df):
         plt.figure(figsize=(8, 6))
         sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
         st.pyplot(plt)
+
+        st.write("""
+        **Interpretation**:        
+        - Age is highly correlated with all other variables, particularly with purchase_amount (0.99) and purchase_frequency (0.98).
+        - Annual_income has a strong correlation with purchase_amount (0.98), loyalty_score (0.98), and purchase_frequency (0.98), indicating that higher income is associated with higher spending and loyalty.
+        - Purchase_amount and purchase_frequency are almost perfectly correlated (0.99), suggesting that customers who spend more also shop more frequently.
+        - Loyalty_score is strongly correlated with both purchase_amount (0.99) and purchase_frequency (0.99), implying that loyal customers tend to spend more and shop more often.
+        - The diagonal values are 1.00, representing the perfect correlation of each variable with itself.
+        - Overall, the heatmap indicates a tightly interconnected dataset, where all variables are strongly related to one another.
+
+        """)
 
 #Analysis and Insights
 
