@@ -207,103 +207,116 @@ def data_exploration_section(df):
         """)
 
 #Analysis and Insights
+def analysis_and_insights_section(data):
+    
+    tab1, tab2 = st.tabs(["Purchase Amount Analysis", "Purchase Frequency Analysis"])
 
-def analysis_and_insights_section(df):
-    st.subheader("Analysis and Insights")
-
-    # Predicting Purchase Amount
-    X = df[['age', 'annual_income', 'loyalty_score', 'purchase_frequency']]  # Input features
-    y_amount = df['purchase_amount']  # Target for purchase amount
-
-    # Split and train the model for purchase amount
-    X_train, X_test, y_train, y_test = train_test_split(X, y_amount, test_size=0.2, random_state=42)
-    model_amount = LinearRegression()
-    model_amount.fit(X_train, y_train)
-
-    # Predicting Purchase Frequency
-    y_freq = df['purchase_frequency']  # Target for purchase frequency
-
-    # Split and train the model for purchase frequency
-    X_train_freq, X_test_freq, y_train_freq, y_test_freq = train_test_split(X, y_freq, test_size=0.2, random_state=42)
-    model_freq = LinearRegression()
-    model_freq.fit(X_train_freq, y_train_freq)
-
-    # Sidebar for selecting model type
-    st.sidebar.subheader("Choose Regression Model")
-    model_type = st.sidebar.selectbox(
-        "Regression Type", 
-        ["Linear Regression", "Ridge Regression", "Lasso Regression", "Elastic Net Regression"]
-    )
-
-    # Slider for regularization parameters
-    alpha = st.sidebar.slider("Regularization Strength (Alpha)", min_value=0.01, max_value=10.0, value=1.0, step=0.1)
-
-    # Model selection
-    if model_type == "Linear Regression":
-        model = LinearRegression()
-    elif model_type == "Ridge Regression":
-        model = Ridge(alpha=alpha)
-    elif model_type == "Lasso Regression":
-        model = Lasso(alpha=alpha)
-    elif model_type == "Elastic Net Regression":
-        l1_ratio = st.sidebar.slider("L1 Ratio (Elastic Net)", min_value=0.0, max_value=1.0, value=0.5, step=0.1)
-        model = ElasticNet(alpha=alpha, l1_ratio=l1_ratio)
-
-    # Create tabs for different visualizations
-    tab1, tab2 = st.tabs(
-        ["Purchase Amount Analysis", 
-         "Purchase Frequency Analysis"]
-    )
-
+    # Purchase Amount Analysis
     with tab1:
-        # Fit the selected model on the purchase amount data
-        model.fit(X_train, y_train)
-        y_pred = model.predict(X_test)
+        st.subheader("Purchase Amount Analysis: Relationship with Independent Variables")
 
-        # Display model performance for purchase amount
-        st.write("### Model Performance")
-        st.write(f"**Mean Squared Error (MSE):** {mean_squared_error(y_test, y_pred):.2f}")
-        st.write(f"**R² Score:** {r2_score(y_test, y_pred):.2f}")
+        # 'Age vs Purchase Amount' plot with correlation coefficient
+        fig_age_amount, ax_age_amount = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='age', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_age_amount)
+        corr_age_amount = data['age'].corr(data['purchase_amount'])
+        ax_age_amount.text(0.95, 0.05, f'Corr: {corr_age_amount:.2f}', transform=ax_age_amount.transAxes, 
+                        verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_age_amount.set_title('Age vs Purchase Amount')
+        st.pyplot(fig_age_amount)
 
-        # Show coefficients for purchase amount model
-        st.write("### Model Coefficients")
-        coeff_df = pd.DataFrame({"Feature": X.columns, "Coefficient": model.coef_})
-        st.write(coeff_df)
+        # 'Annual Income vs Purchase Amount' plot with correlation coefficient
+        fig_income_amount, ax_income_amount = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='annual_income', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_income_amount)
+        corr_income_amount = data['annual_income'].corr(data['purchase_amount'])
+        ax_income_amount.text(0.95, 0.05, f'Corr: {corr_income_amount:.2f}', transform=ax_income_amount.transAxes, 
+                            verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_income_amount.set_title('Annual Income vs Purchase Amount')
+        st.pyplot(fig_income_amount)
 
-        # Visualization: Predicted vs. Actual (Purchase Amount)
-        st.write("### Predicted vs. Actual Values")
-        fig, ax = plt.subplots()
-        ax.scatter(y_test, y_pred, alpha=0.7)
-        ax.plot([y_amount.min(), y_amount.max()], [y_amount.min(), y_amount.max()], 'k--', lw=2)
-        ax.set_title(f"{model_type}: Predicted vs. Actual (Purchase Amount)")
-        ax.set_xlabel("Actual Purchase Amount")
-        ax.set_ylabel("Predicted Purchase Amount")
-        st.pyplot(fig)
+        # 'Loyalty Score vs Purchase Amount' plot with correlation coefficient
+        fig_loyalty_amount, ax_loyalty_amount = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='loyalty_score', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_loyalty_amount)
+        corr_loyalty_amount = data['loyalty_score'].corr(data['purchase_amount'])
+        ax_loyalty_amount.text(0.95, 0.05, f'Corr: {corr_loyalty_amount:.2f}', transform=ax_loyalty_amount.transAxes, 
+                            verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_loyalty_amount.set_title('Loyalty Score vs Purchase Amount')
+        st.pyplot(fig_loyalty_amount)
 
+        # 'Purchase Frequency vs Purchase Amount' plot with correlation coefficient
+        fig_freq_amount, ax_freq_amount = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='purchase_frequency', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_freq_amount)
+        corr_freq_amount = data['purchase_frequency'].corr(data['purchase_amount'])
+        ax_freq_amount.text(0.95, 0.05, f'Corr: {corr_freq_amount:.2f}', transform=ax_freq_amount.transAxes, 
+                        verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_freq_amount.set_title('Purchase Frequency vs Purchase Amount')
+        st.pyplot(fig_freq_amount)
+
+        # Interpretation
+        st.write("### Key Insights on Purchase Amount Analysis")
+        st.write("""
+        - Age vs Purchase Amount
+            -  The positive correlation (0.99) suggests that older customers tend to spend more. The regression line indicates a strong linear relationship, with minimal scatter around the line.
+        - Annual Income vs Purchase Amount
+            -  A high correlation (0.98) shows that customers with higher incomes generally spend more. However, the scatterplot reveals some variability, indicating other factors may also influence spending.
+        - Loyalty Score vs Purchase Amount
+            -  The strongest correlation (0.99) highlights that loyalty is a key driver of spending. The regression line is steep, showing that even small increases in loyalty score significantly impact purchase amounts.
+        - Purchase Frequency vs Purchase Amount
+            -  A strong correlation (0.99) indicates that frequent shoppers spend more. The scatterplot shows a tight clustering around the regression line, reinforcing the predictive power of frequency.
+
+        """)
+
+    # Purchase Frequency Analysis
     with tab2:
-        # Fit the selected model on the purchase frequency data
-        model.fit(X_train_freq, y_train_freq)
-        y_pred_freq = model.predict(X_test_freq)
+        st.subheader("Purchase Frequency Analysis: Relationship with Independent Variables")
 
-        # Display model performance for purchase frequency
-        st.write("### Model Performance")
-        st.write(f"**Mean Squared Error (MSE):** {mean_squared_error(y_test_freq, y_pred_freq):.2f}")
-        st.write(f"**R² Score:** {r2_score(y_test_freq, y_pred_freq):.2f}")
+        # 'Age vs Purchase Frequency' plot with correlation coefficient
+        fig_age_freq, ax_age_freq = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='age', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_age_freq)
+        corr_age_freq = data['age'].corr(data['purchase_frequency'])
+        ax_age_freq.text(0.95, 0.05, f'Corr: {corr_age_freq:.2f}', transform=ax_age_freq.transAxes, 
+                        verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_age_freq.set_title('Age vs Purchase Frequency')
+        st.pyplot(fig_age_freq)
 
-        # Show coefficients for purchase frequency model
-        st.write("### Model Coefficients")
-        coeff_df_freq = pd.DataFrame({"Feature": X.columns, "Coefficient": model.coef_})
-        st.write(coeff_df_freq)
+        # 'Annual Income vs Purchase Frequency' plot with correlation coefficient
+        fig_income_freq, ax_income_freq = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='annual_income', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_income_freq)
+        corr_income_freq = data['annual_income'].corr(data['purchase_frequency'])
+        ax_income_freq.text(0.95, 0.05, f'Corr: {corr_income_freq:.2f}', transform=ax_income_freq.transAxes, 
+                            verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_income_freq.set_title('Annual Income vs Purchase Frequency')
+        st.pyplot(fig_income_freq)
 
-        # Visualization: Predicted vs. Actual (Purchase Frequency)
-        st.write("### Predicted vs. Actual Values")
-        fig_freq, ax_freq = plt.subplots()
-        ax_freq.scatter(y_test_freq, y_pred_freq, alpha=0.7)
-        ax_freq.plot([y_freq.min(), y_freq.max()], [y_freq.min(), y_freq.max()], 'k--', lw=2)
-        ax_freq.set_title(f"{model_type}: Predicted vs. Actual (Purchase Frequency)")
-        ax_freq.set_xlabel("Actual Purchase Frequency")
-        ax_freq.set_ylabel("Predicted Purchase Frequency")
-        st.pyplot(fig_freq)
+        # 'Loyalty Score vs Purchase Frequency' plot with correlation coefficient
+        fig_loyalty_freq, ax_loyalty_freq = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='loyalty_score', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_loyalty_freq)
+        corr_loyalty_freq = data['loyalty_score'].corr(data['purchase_frequency'])
+        ax_loyalty_freq.text(0.95, 0.05, f'Corr: {corr_loyalty_freq:.2f}', transform=ax_loyalty_freq.transAxes, 
+                            verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_loyalty_freq.set_title('Loyalty Score vs Purchase Frequency')
+        st.pyplot(fig_loyalty_freq)
+
+        # 'Purchase Amount vs Purchase Frequency' plot with correlation coefficient
+        fig_amount_freq, ax_amount_freq = plt.subplots(figsize=(10, 6))
+        sns.regplot(data=data, x='purchase_amount', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_amount_freq)
+        corr_amount_freq = data['purchase_amount'].corr(data['purchase_frequency'])
+        ax_amount_freq.text(0.95, 0.05, f'Corr: {corr_amount_freq:.2f}', transform=ax_amount_freq.transAxes, 
+                            verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
+        ax_amount_freq.set_title('Purchase Amount vs Purchase Frequency')
+        st.pyplot(fig_amount_freq)
+
+        # Interpretation
+        st.write("### Key Insights on Purchase Frequency Analysis")
+        st.write("""
+        - Age vs Purchase Frequency
+            - The correlation (0.98) suggests that older customers shop more frequently. The scatterplot shows a clear upward trend, with some outliers indicating variability in shopping habits.
+        - Annual Income vs Purchase Frequency
+            - A correlation of 0.98) suggests that higher-income customers shop more often. The regression line is well-fitted, but some scatter indicates other influencing factors.
+        - Loyalty Score vs Purchase Frequency
+            - A strong correlation (0.99) shows that loyal customers shop more frequently. The scatterplot is tightly clustered, indicating a consistent relationship.
+        - Purchase Amount vs Purchase Frequency
+            - The highest correlation (0.99) confirms that higher spending is associated with more frequent shopping. The scatterplot shows a near-perfect linear relationship.
+                """)
 
 
 # Conclusions and Recommendations Section
