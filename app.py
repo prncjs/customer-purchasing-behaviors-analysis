@@ -73,7 +73,8 @@ def data_exploration_section(df):
 
     # Summary statistics
     st.write("Summary Statistics:")
-    st.write(df.describe())
+    st.write(df.drop(columns=['user_id']).describe())
+
 
     st.write("Visualizations:")
 
@@ -224,6 +225,11 @@ def analysis_and_insights_section(data):
         ax_age_amount.set_title('Age vs Purchase Amount')
         st.pyplot(fig_age_amount)
 
+        st.write("""
+        - Age vs Purchase Amount
+            -  The positive correlation (0.99) suggests that older customers tend to spend more. The regression line indicates a strong linear relationship, with minimal scatter around the line.
+        """)
+
         # 'Annual Income vs Purchase Amount' plot with correlation coefficient
         fig_income_amount, ax_income_amount = plt.subplots(figsize=(10, 6))
         sns.regplot(data=data, x='annual_income', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_income_amount)
@@ -232,6 +238,11 @@ def analysis_and_insights_section(data):
                             verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
         ax_income_amount.set_title('Annual Income vs Purchase Amount')
         st.pyplot(fig_income_amount)
+
+        st.write("""
+        - Annual Income vs Purchase Amount
+            -  A high correlation (0.98) shows that customers with higher incomes generally spend more. However, the scatterplot reveals some variability, indicating other factors may also influence spending.
+        """)
 
         # 'Loyalty Score vs Purchase Amount' plot with correlation coefficient
         fig_loyalty_amount, ax_loyalty_amount = plt.subplots(figsize=(10, 6))
@@ -242,6 +253,11 @@ def analysis_and_insights_section(data):
         ax_loyalty_amount.set_title('Loyalty Score vs Purchase Amount')
         st.pyplot(fig_loyalty_amount)
 
+        st.write("""
+        - Loyalty Score vs Purchase Amount
+            -  The strongest correlation (0.99) highlights that loyalty is a key driver of spending. The regression line is steep, showing that even small increases in loyalty score significantly impact purchase amounts.
+        """)
+
         # 'Purchase Frequency vs Purchase Amount' plot with correlation coefficient
         fig_freq_amount, ax_freq_amount = plt.subplots(figsize=(10, 6))
         sns.regplot(data=data, x='purchase_frequency', y='purchase_amount', scatter_kws={'alpha':0.7}, ax=ax_freq_amount)
@@ -251,19 +267,11 @@ def analysis_and_insights_section(data):
         ax_freq_amount.set_title('Purchase Frequency vs Purchase Amount')
         st.pyplot(fig_freq_amount)
 
-        # Interpretation
-        st.write("### Key Insights on Purchase Amount Analysis")
         st.write("""
-        - Age vs Purchase Amount
-            -  The positive correlation (0.99) suggests that older customers tend to spend more. The regression line indicates a strong linear relationship, with minimal scatter around the line.
-        - Annual Income vs Purchase Amount
-            -  A high correlation (0.98) shows that customers with higher incomes generally spend more. However, the scatterplot reveals some variability, indicating other factors may also influence spending.
-        - Loyalty Score vs Purchase Amount
-            -  The strongest correlation (0.99) highlights that loyalty is a key driver of spending. The regression line is steep, showing that even small increases in loyalty score significantly impact purchase amounts.
         - Purchase Frequency vs Purchase Amount
             -  A strong correlation (0.99) indicates that frequent shoppers spend more. The scatterplot shows a tight clustering around the regression line, reinforcing the predictive power of frequency.
-
         """)
+
 
     # Purchase Frequency Analysis
     with tab2:
@@ -278,6 +286,12 @@ def analysis_and_insights_section(data):
         ax_age_freq.set_title('Age vs Purchase Frequency')
         st.pyplot(fig_age_freq)
 
+        st.write("""
+        - Age vs Purchase Frequency
+            - The correlation (0.98) suggests that older customers shop more frequently. The scatterplot shows a clear upward trend, with some outliers indicating variability in shopping habits.
+        """)
+
+
         # 'Annual Income vs Purchase Frequency' plot with correlation coefficient
         fig_income_freq, ax_income_freq = plt.subplots(figsize=(10, 6))
         sns.regplot(data=data, x='annual_income', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_income_freq)
@@ -286,6 +300,12 @@ def analysis_and_insights_section(data):
                             verticalalignment='bottom', horizontalalignment='right', color='blue', fontsize=10, weight='bold')
         ax_income_freq.set_title('Annual Income vs Purchase Frequency')
         st.pyplot(fig_income_freq)
+
+        st.write("""
+        - Annual Income vs Purchase Frequency
+            - A correlation of 0.98) suggests that higher-income customers shop more often. The regression line is well-fitted, but some scatter indicates other influencing factors.
+        """)
+
 
         # 'Loyalty Score vs Purchase Frequency' plot with correlation coefficient
         fig_loyalty_freq, ax_loyalty_freq = plt.subplots(figsize=(10, 6))
@@ -296,6 +316,12 @@ def analysis_and_insights_section(data):
         ax_loyalty_freq.set_title('Loyalty Score vs Purchase Frequency')
         st.pyplot(fig_loyalty_freq)
 
+        st.write("""
+        - Loyalty Score vs Purchase Frequency
+            - A strong correlation (0.99) shows that loyal customers shop more frequently. The scatterplot is tightly clustered, indicating a consistent relationship.
+       """)
+
+
         # 'Purchase Amount vs Purchase Frequency' plot with correlation coefficient
         fig_amount_freq, ax_amount_freq = plt.subplots(figsize=(10, 6))
         sns.regplot(data=data, x='purchase_amount', y='purchase_frequency', scatter_kws={'alpha':0.7}, ax=ax_amount_freq)
@@ -305,29 +331,98 @@ def analysis_and_insights_section(data):
         ax_amount_freq.set_title('Purchase Amount vs Purchase Frequency')
         st.pyplot(fig_amount_freq)
 
-        # Interpretation
-        st.write("### Key Insights on Purchase Frequency Analysis")
         st.write("""
-        - Age vs Purchase Frequency
-            - The correlation (0.98) suggests that older customers shop more frequently. The scatterplot shows a clear upward trend, with some outliers indicating variability in shopping habits.
-        - Annual Income vs Purchase Frequency
-            - A correlation of 0.98) suggests that higher-income customers shop more often. The regression line is well-fitted, but some scatter indicates other influencing factors.
-        - Loyalty Score vs Purchase Frequency
-            - A strong correlation (0.99) shows that loyal customers shop more frequently. The scatterplot is tightly clustered, indicating a consistent relationship.
         - Purchase Amount vs Purchase Frequency
             - The highest correlation (0.99) confirms that higher spending is associated with more frequent shopping. The scatterplot shows a near-perfect linear relationship.
-                """)
-
+        """)
 
 # Conclusions and Recommendations Section
 def conclusions_and_recommendations_section():
     st.subheader('Conclusions and Recommendations')
-    st.write("""
+
+    # Key Insights and Recommendations
+    insights_recommendations = {
+        "Age vs Purchase Amount": {
+            "Insight": "Older customers tend to spend more, as evidenced by the strong positive correlation.",
+            "Recommendations": [
+                "**Age-Based Strategies**",
+                "- Develop premium products/services for older customers.",
+                "- Create targeted marketing campaigns for different age groups."
+            ]
+        },
+        "Annual Income vs Purchase Amount": {
+            "Insight": "Higher income is associated with greater spending, although some variability exists.",
+            "Recommendations": [
+                "**Income-Based Strategies**",
+                "- Offer exclusive, high-value products for higher-income customers.",
+                "- Implement tiered pricing strategies to cater to different income levels."
+            ]
+        },
+        "Loyalty Score vs Purchase Amount": {
+            "Insight": "Loyal customers spend significantly more, showing the highest correlation.",
+            "Recommendations": [
+                "**Loyalty Program Enhancements**",
+                "- Strengthen rewards for high-spending customers.",
+                "- Create personalized offers to encourage larger purchases."
+            ]
+        },
+        "Purchase Frequency vs Purchase Amount": {
+            "Insight": "Frequent shoppers spend more, with a tightly clustered linear relationship.",
+            "Recommendations": [
+                "**Encourage Repeat Purchases**",
+                "- Use promotions and discounts to incentivize frequent shoppers.",
+                "- Develop subscription-based models for consistent revenue."
+            ]
+        },
+        "Age vs Purchase Frequency": {
+            "Insight": "Older customers shop more frequently, showing an upward trend.",
+            "Recommendations": [
+                "**Age-Based Engagement**",
+                "- Design campaigns that appeal to older customers' preferences.",
+                "- Offer incentives for younger customers to shop more frequently."
+            ]
+        },
+        "Annual Income vs Purchase Frequency": {
+            "Insight": "Higher-income customers tend to shop more often, with some variability.",
+            "Recommendations": [
+                "**Income-Based Engagement**",
+                "- Provide exclusive benefits for high-income customers to increase visit frequency.",
+                "- Use targeted ads to attract middle-income customers."
+            ]
+        },
+        "Loyalty Score vs Purchase Frequency": {
+            "Insight": "Loyal customers shop more frequently, with a strong positive correlation.",
+            "Recommendations": [
+                "**Loyalty Program Optimization**",
+                "- Reward frequent visits with points or discounts.",
+                "- Create tiered loyalty levels to encourage more frequent shopping."
+            ]
+        },
+        "Purchase Amount vs Purchase Frequency": {
+            "Insight": "Higher spending is associated with more frequent shopping, showing a near-perfect relationship.",
+            "Recommendations": [
+                "**Cross-Selling Opportunities*",
+                "- Promote complementary products to increase purchase frequency.",
+                "- Use data-driven recommendations to personalize shopping experiences."
+            ]
+        }
+    }
+
+    # Dropdown for insights exploration
+    selected_relationship = st.selectbox(
+        "Select a Relationship to Explore Insights",
+        list(insights_recommendations.keys())
+    )
+
+    # Display the insight and recommendations
+    if selected_relationship:
+        st.subheader(f"Insights for {selected_relationship}")
+        st.write(f"**Insight:** {insights_recommendations[selected_relationship]['Insight']}")
+        st.write("**Recommendations:**")
+        for rec in insights_recommendations[selected_relationship]["Recommendations"]:
+            st.markdown(rec)
+
     
-    
-    **Recommendations:**
-   
-    """)
 
 # Main App with Navigation
 def main():
