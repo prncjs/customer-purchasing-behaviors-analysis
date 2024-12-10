@@ -212,7 +212,7 @@ def data_exploration_section(df):
 #Analysis and Insights
 def analysis_and_insights_section(data):
     
-    tab1, tab2, tab3, tab4 = st.tabs(["Purchase Amount Analysis", "Purchase Frequency Analysis", "Key Patterns & Trends", "Anomalies"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Purchase Amount Analysis", "Purchase Frequency Analysis", "Key Patterns & Trends", "Anomalies & Considerations"])
 
     # Purchase Amount Analysis
     with tab1:
