@@ -212,7 +212,7 @@ def data_exploration_section(df):
 #Analysis and Insights
 def analysis_and_insights_section(data):
     
-    tab1, tab2 = st.tabs(["Purchase Amount Analysis", "Purchase Frequency Analysis"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Purchase Amount Analysis", "Purchase Frequency Analysis", "Key Patterns & Trends", "Anomalies"])
 
     # Purchase Amount Analysis
     with tab1:
@@ -333,10 +333,39 @@ def analysis_and_insights_section(data):
         ax_amount_freq.set_title('Purchase Amount vs Purchase Frequency')
         st.pyplot(fig_amount_freq)
 
+
         st.write("""
         - Purchase Amount vs Purchase Frequency
             - The highest correlation (0.99) confirms that higher spending is associated with more frequent shopping. The scatterplot shows a near-perfect linear relationship.
         """)
+
+    with tab3:
+        st.subheader('Key Patterns and Trends')
+
+        st.write("""
+        - Strong Relationships Across Variables:
+            - Both purchase amount and purchase frequency show strong positive correlations with age, income, loyalty score, and each other. This indicates that these variables are interrelated and collectively influence customer behavior.
+        - Loyalty as a Key Driver:
+            - Loyalty score consistently shows the strongest correlations with both purchase amount and purchase frequency. This highlights the critical role of customer loyalty in driving revenue and engagement.
+        - Age and Income as Predictors:
+            - Age and income are strong predictors of both purchase amount and frequency, reflecting the importance of demographic and financial factors in shaping customer behavior.
+        - Purchase Frequency and Amount Interdependence:
+            - The near-perfect correlation between purchase amount and frequency suggests that customers who shop more often also tend to spend more, reinforcing the importance of encouraging repeat purchases.
+        """)
+
+    with tab4:
+        st.subheader('Anomalies and Considerations')
+
+        st.write("""
+        - Outliers:
+            - While the relationships are strong, some scatterplots show outliers, indicating variability in customer behavior. These outliers could represent unique customer segments or external factors influencing spending and shopping habits.
+        - Other Influencing Factors:
+            - Despite the strong correlations, some variability suggests that other factors (e.g., product preferences, marketing effectiveness, or external economic conditions) may also play a role.
+        """)
+
+        
+
+        
 
 # Conclusions and Recommendations Section
 def conclusions_and_recommendations_section():
