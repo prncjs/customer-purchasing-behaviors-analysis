@@ -30,7 +30,9 @@ def overview_section(df):
     - **region**: The geographical region where the customer is located (North, South, East, West), potentially impacting their preferences and buying behavior.
     - **loyalty_score**: A score ranging from 1 to 10, representing how loyal the customer is to the brand, based on their interaction and engagement.
     
-    This dataset is designed to help analyze customer segmentation, loyalty trends, and purchasing behavior. By examining the relationships between the attributes, we can better understand how different factors such as age, income, and loyalty impact the total **purchase amount**. Insights derived from this analysis can assist businesses in creating more targeted marketing strategies and improving customer engagement.
+    This dataset is designed to help analyze customer segmentation, loyalty trends, and purchasing behavior. By examining the relationships between the attributes, 
+    we can better understand how different factors such as age, income, and loyalty impact the total purchase amount. 
+    Insights derived from this analysis can assist businesses in creating more targeted marketing strategies and improving customer engagement.
     """)
 
     # Research Question
